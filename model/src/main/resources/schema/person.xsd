@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.1"
+	xmlns:annox="http://annox.dev.java.net" jaxb:extensionBindingPrefixes="annox"
+	xmlns:spring-data="http://annox.dev.java.net/org.springframework.data.mongodb.core.mapping">
+
+	<!-- Convert date elements to string -->
+	<xs:annotation>
+		<xs:appinfo>
+			<jaxb:globalBindings>
+				<jaxb:javaType name="java.lang.String" xmlType="xs:date"
+					parseMethod="javax.xml.bind.DatatypeConverter.parseString"
+					printMethod="javax.xml.bind.DatatypeConverter.printString" />
+			</jaxb:globalBindings>
+		</xs:appinfo>
+	</xs:annotation>
+	
+	<xs:element name="person">
+		<xs:complexType>
+			<xs:annotation>
+				<xs:appinfo>
+					<annox:annotate>
+						<!-- Entity annotation for spring-mongodb integration-->
+						<spring-data:Document />
+					</annox:annotate>
+				</xs:appinfo>
+			</xs:annotation>
+			<xs:sequence>
+				<xs:element name="id" type="xs:string" minOccurs="1"
+					maxOccurs="1" />
+				<xs:element name="placeOfBirth" type="xs:string"
+					nillable="true" />
+				<xs:element name="height" type="xs:float" nillable="true" />
+				<xs:element name="familyName" type="xs:string" />
+				<xs:element name="givenName" type="xs:string" />
+				<xs:element name="middleNames" type="xs:string" nillable="true" />
+				<xs:element name="twitterId" type="xs:string" />
+				<xs:element name="dateOfDeath" type="xs:date" />
+				<xs:element name="dateOfBirth" type="xs:date" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+</xs:schema>
